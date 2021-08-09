@@ -1,0 +1,22 @@
+.root {
+    background: grey;
+    max-width: 360px;
+}
+
+
+.staticOperators {
+    border: 1px groove;
+    border-radius: 0;
+    background-color: orange!important;
+}
+
+.button {
+    border: 1px groove;
+    border-radius: 0
+}
+
+.operators {
+    background-color: yellow!important;
+    border: 1px groove;
+    border-radius: 0;
+}
