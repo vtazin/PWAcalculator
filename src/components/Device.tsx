@@ -5,6 +5,7 @@ import {setDisplayValue} from '../actions';
 import {ProviderState} from '../reducers';
 import './Device.css';
 import Display from './Display';
+import Digits from './Digits';
 
 enum Operators {
     NULL,
@@ -21,26 +22,6 @@ class Device extends Component<ConnectedProps<typeof connector>> {
         textNumber: '0',
         firstValue: 0,
         operator: Operators.NULL
-    };
-
-
-    addDigit = (event: any) => {
-        let digit = (event.target as HTMLButtonElement)!.innerText;
-
-        let numberValue = parseFloat(this.state.textNumber + digit);
-        if (this.state.textNumber.indexOf('.') === -1 && digit === '.') {
-            this.setState({
-                ...this.state,
-                textNumber: numberValue.toString() + digit,
-            });
-            this.props.setTextValue(numberValue.toString() + digit);
-        } else {
-            this.setState({
-                ...this.state,
-                textNumber: numberValue.toString(),
-            });
-            this.props.setTextValue(numberValue.toString());
-        }
     };
 
 
@@ -112,7 +93,7 @@ class Device extends Component<ConnectedProps<typeof connector>> {
     render() {
         return (
             <Container className={"root"}>
-                <Display />
+                <Display/>
                 <Grid container>
                     <Grid container item xs={9}>
                         <Grid container item xs={12}>
@@ -127,58 +108,7 @@ class Device extends Component<ConnectedProps<typeof connector>> {
                                 <Button variant="outlined" fullWidth className={"staticOperators"}>%</Button>
                             </Grid>
                         </Grid>
-                        <Grid container item xs={12}>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>7</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>8</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>9</Button>
-                            </Grid>
-                        </Grid>
-                        <Grid container item xs={12}>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>4</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>5</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>6</Button>
-                            </Grid>
-                        </Grid>
-                        <Grid container item xs={12}>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>1</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>2</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>3</Button>
-                            </Grid>
-                        </Grid>
-                        <Grid container item xs={12}>
-                            <Grid item xs={8}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>0</Button>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button variant="outlined" fullWidth className={"button"}
-                                        onClick={this.addDigit}>.</Button>
-                            </Grid>
-                        </Grid>
+                        <Digits/>
                     </Grid>
                     <Grid container item xs={3}>
                         <Grid item xs={12}>
