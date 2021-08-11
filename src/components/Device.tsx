@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Container, Grid, TextField} from '@material-ui/core';
+import {Button, Container, Grid} from '@material-ui/core';
 import {connect, ConnectedProps} from 'react-redux';
 import {setDisplayValue} from '../actions';
 import {ProviderState} from '../reducers';
 import './Device.css';
+import Display from './Display';
 
 enum Operators {
     NULL,
@@ -111,9 +112,7 @@ class Device extends Component<ConnectedProps<typeof connector>> {
     render() {
         return (
             <Container className={"root"}>
-                <TextField id="value" className={"display"} value={this.props.display}
-                           inputProps={{style: {textAlign: 'end', fontSize: '32px', color: 'white'}}}
-                           variant="filled" fullWidth margin="dense" disabled={true}/>
+                <Display />
                 <Grid container>
                     <Grid container item xs={9}>
                         <Grid container item xs={12}>
