@@ -3,9 +3,7 @@ import Device from './components/Device';
 
 function App() {
   return (
-    <div>
       <Device/>
-    </div>
   );
 }
 

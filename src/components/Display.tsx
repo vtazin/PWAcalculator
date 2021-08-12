@@ -8,7 +8,6 @@ class Display extends Component<ConnectedProps<typeof connector>> {
     render() {
         return (
             <TextField id="value" className={"display"} value={this.props.display}
-                       inputProps={{style: {textAlign: 'end', fontSize: '32px', color: 'white'}}}
                        variant="filled" fullWidth margin="dense" disabled={true}/>
         );
     }

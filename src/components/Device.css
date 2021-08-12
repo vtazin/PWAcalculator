@@ -1,22 +1,54 @@
 .root {
-    background: grey;
-    max-width: 360px;
+    background: dodgerblue;
+    --min-height: 80px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    --font-size:24px;
+
 }
 
+.buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 10px;
+}
+
+.display>div>input {
+    text-align: end;
+    font-size: 32px;
+    color: white;
+    height: 100px;
+}
+
+.display{
+    margin-bottom: 40px!important;
+}
 
 .staticOperators {
     border: 1px groove;
     border-radius: 0;
-    background-color: orange!important;
+    background-color: orange !important;
+    min-height: var(--min-height);
+    font-size: var(--font-size)!important;
 }
 
 .button {
+    background-color: whitesmoke!important;
     border: 1px groove;
-    border-radius: 0
+    border-radius: 0;
+    min-height: var(--min-height);
+    font-size: var(--font-size)!important;;
 }
 
 .operators {
-    background-color: yellow!important;
+    background-color: yellow !important;
     border: 1px groove;
     border-radius: 0;
+    min-height: var(--min-height);
+    font-size: var(--font-size)!important;;
 }
