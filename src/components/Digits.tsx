@@ -57,7 +57,7 @@ class Digits extends Component<ConnectedProps<typeof connector>> {
                 </Grid>
                 <Grid container item xs={12}>
                     <Grid item xs={8}>
-                        <Button variant="outlined" fullWidth className={"button"}
+                        <Button variant="outlined" fullWidth className={"button zero"}
                                 onClick={this.addDigit}>0</Button>
                     </Grid>
                     <Grid item xs={4}>

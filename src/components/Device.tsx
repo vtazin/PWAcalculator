@@ -9,18 +9,16 @@ import MainOperators from './MainOperators';
 export default function Device() {
     return (
         <Container className={"root"}>
-            <div className={"buttons"}>
-                <Display/>
-                <Grid container>
-                    <Grid container item xs={9}>
-                        <StaticOperators/>
-                        <Digits/>
-                    </Grid>
-                    <Grid container item xs={3}>
-                        <MainOperators/>
-                    </Grid>
+            <Display/>
+            <Grid container className={"buttons"}>
+                <Grid container item xs={9}>
+                    <StaticOperators/>
+                    <Digits/>
                 </Grid>
-            </div>
+                <Grid container item xs={3}>
+                    <MainOperators/>
+                </Grid>
+            </Grid>
         </ Container>
     );
 }

@@ -29,6 +29,19 @@ class StaticOperators extends Component<ConnectedProps<typeof connector>> {
         this.props.setResult(result);
     };
 
+    negative = () => {
+        let result = parseFloat(this.props.display);
+        result *= -1;
+
+        let textResult = result.toString();
+        const pointIndex = textResult.indexOf('.');
+        if (pointIndex !== -1) {
+            textResult = textResult.slice(0, pointIndex + 6);
+            result = parseFloat(textResult);
+        }
+        this.props.setTextValue(result.toString());
+    };
+
     render() {
         return (
             <Grid container item xs={12}>
@@ -36,7 +49,8 @@ class StaticOperators extends Component<ConnectedProps<typeof connector>> {
                     <Button variant="outlined" fullWidth className={"staticOperators"} onClick={this.clear}>AC</Button>
                 </Grid>
                 <Grid item xs={4}>
-                    <Button disabled variant="outlined" fullWidth className={"staticOperators"}>+/-</Button>
+                    <Button variant="outlined" fullWidth className={"staticOperators"}
+                            onClick={this.negative}>+/-</Button>
                 </Grid>
                 <Grid item xs={4}>
                     <Button variant="outlined" fullWidth className={"staticOperators"} onClick={this.percent}>%</Button>
