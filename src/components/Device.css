@@ -50,7 +50,7 @@ body{
 
 
 .staticOperators {
-    background-color: #FBD928!important;
+    background-color: #C9C9C9 !important;
     box-shadow: -4px -4px 12px #FFFFFF, 4px 4px 12px rgba(209, 205, 199, 0.5);
     border-radius: 30px!important;
     border: none!important;
@@ -79,7 +79,7 @@ body{
 }
 
 .operators {
-    background-color: #FBD928 !important;
+    background-color: #C9C9C9 !important;
     box-shadow: -4px -4px 12px #FFFFFF, 4px 4px 12px rgba(209, 205, 199, 0.5);
     border-radius: 30px!important;
     border: none!important;
