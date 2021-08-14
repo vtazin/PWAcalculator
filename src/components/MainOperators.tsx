@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
-import {Button, Grid} from '@material-ui/core';
+import {Button, Grid, Theme, withStyles, WithStyles} from '@material-ui/core';
 import {Operators, setCurrentOperator, setCurrentResult, setDisplayValue} from '../actions';
 import {connect, ConnectedProps} from 'react-redux';
 import {ProviderState} from '../reducers';
 
-class MainOperators extends Component<ConnectedProps<typeof connector>> {
+
+const styles = (theme: Theme) => ({
+    mainOperators: {
+        background: '#C9C9C9',
+        boxShadow: '-4px -4px 12px #FFFFFF, 4px 4px 12px rgba(209, 205, 199, 0.5)'
+    }
+});
+
+
+class MainOperators extends Component<ConnectedProps<typeof connector> & WithStyles<typeof styles>> {
 
     activateOperator = (value: Operators) => {
         this.run();
@@ -50,26 +59,27 @@ class MainOperators extends Component<ConnectedProps<typeof connector>> {
     };
 
     render() {
+        const {classes} = this.props;
         return (
             <React.Fragment>
                 <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={"operators"}
+                    <Button variant="outlined" fullWidth className={classes.mainOperators}
                             onClick={() => this.activateOperator(Operators.DIV)}>/</Button>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={"operators"}
+                    <Button variant="outlined" fullWidth className={classes.mainOperators}
                             onClick={() => this.activateOperator(Operators.MULT)}>x</Button>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={"operators"}
+                    <Button variant="outlined" fullWidth className={classes.mainOperators}
                             onClick={() => this.activateOperator(Operators.SUB)}>-</Button>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={"operators"}
+                    <Button variant="outlined" fullWidth className={classes.mainOperators}
                             onClick={() => this.activateOperator(Operators.ADD)}>+</Button>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={"operators"} onClick={this.run}>=</Button>
+                    <Button variant="outlined" fullWidth className={classes.mainOperators} onClick={this.run}>=</Button>
                 </Grid>
             </React.Fragment>
         );
@@ -90,4 +100,4 @@ const connector = connect(mapStateToProps, {
     setTextValue: setDisplayValue
 });
 
-export default connector(MainOperators);
+export default withStyles(styles)(connector(MainOperators));

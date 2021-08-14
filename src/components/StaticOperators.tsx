@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
-import {Button, Grid} from '@material-ui/core';
+import {Button, Grid, Theme, withStyles, WithStyles} from '@material-ui/core';
 import {connect, ConnectedProps} from 'react-redux';
 import {Operators, setCurrentOperator, setCurrentResult, setDisplayValue} from '../actions';
 import {ProviderState} from '../reducers';
 
 
-class StaticOperators extends Component<ConnectedProps<typeof connector>> {
+const styles = (theme: Theme) => ({
+    staticOperators: {
+        background: '#C9C9C9',
+        boxShadow: '-4px -4px 12px #FFFFFF, 4px 4px 12px rgba(209, 205, 199, 0.5)'
+    }
+});
+
+class StaticOperators extends Component<ConnectedProps<typeof connector> & WithStyles<typeof styles>> {
 
 
     clear = () => {
@@ -43,17 +50,20 @@ class StaticOperators extends Component<ConnectedProps<typeof connector>> {
     };
 
     render() {
+        const {classes} = this.props;
         return (
             <Grid container item xs={12}>
                 <Grid item xs={4}>
-                    <Button variant="outlined" fullWidth className={"staticOperators"} onClick={this.clear}>AC</Button>
+                    <Button variant="outlined" fullWidth className={classes.staticOperators}
+                            onClick={this.clear}>AC</Button>
                 </Grid>
                 <Grid item xs={4}>
-                    <Button variant="outlined" fullWidth className={"staticOperators"}
+                    <Button variant="outlined" fullWidth className={classes.staticOperators}
                             onClick={this.negative}>+/-</Button>
                 </Grid>
                 <Grid item xs={4}>
-                    <Button variant="outlined" fullWidth className={"staticOperators"} onClick={this.percent}>%</Button>
+                    <Button variant="outlined" fullWidth className={classes.staticOperators}
+                            onClick={this.percent}>%</Button>
                 </Grid>
             </Grid>
         );
@@ -72,4 +82,4 @@ const connector = connect(mapStateToProps, {
     setTextValue: setDisplayValue
 });
 
-export default connector(StaticOperators);
+export default withStyles(styles)(connector(StaticOperators));
