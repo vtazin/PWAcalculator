@@ -4,7 +4,7 @@ import Digits from './Digits';
 import StaticOperators from './StaticOperators';
 import MainOperators from './MainOperators';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
     root: {
         height: '100%',
         maxWidth: 'calc(100vw - 20px)',

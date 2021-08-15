@@ -2,8 +2,7 @@ export enum ActionType {
     SET_CURRENT_OPERATOR = 'SET_CURRENT_OPERATOR',
     SET_CURRENT_RESULT = 'SET_CURRENT_RESULT',
     SET_DISPLAY_VALUE = 'SET_DISPLAY_VALUE',
-    ADD_DIGIT = 'ADD_DIGIT',
-    DEFAULT = ''
+    ADD_DIGIT = 'ADD_DIGIT'
 }
 
 export enum Operators {

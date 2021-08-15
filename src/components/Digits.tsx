@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Grid, Theme, WithStyles, withStyles} from '@material-ui/core';
+import {Button, Grid, WithStyles, withStyles} from '@material-ui/core';
 import {connect, ConnectedProps} from 'react-redux';
 import {addDigit} from '../actions';
 
 
-const styles = (theme: Theme) => ({
+const styles = () => ({
     root: {
         background: '#F0F0F0',
         filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
@@ -13,11 +13,8 @@ const styles = (theme: Theme) => ({
             backgroundColor: "#F0F0F0"
         }
     },
-    focusVisible: {
-        background: '#E6E5E5!important',
-        filter: 'none!important',
-        boxShadow: 'inset 4px 4px 12px rgba(209, 205, 199, 0.5), inset -4px -4px 12px #FFFFFF!important',
-        '& span': {color: '#000000'}
+    label: {
+        color: '#808080'
     }
 });
 

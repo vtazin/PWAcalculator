@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Theme, withStyles, WithStyles} from '@material-ui/core';
+import {Button, withStyles, WithStyles} from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import {Operators, setCurrentOperator, setCurrentResult, setDisplayValue} from '../actions';
 import {connect, ConnectedProps} from 'react-redux';
@@ -7,7 +7,7 @@ import {ProviderState} from '../reducers';
 import {ToggleButtonGroup} from '@material-ui/lab';
 
 
-const styles = (theme: Theme) => ({
+const styles = () => ({
     root: {
         background: '#F0F0F0',
         filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
@@ -34,12 +34,12 @@ class MainOperators extends Component<ConnectedProps<typeof connector> & WithSty
     activateOperator = (value: Operators) => {
         this.run();
         this.props.setOperator(value);
-        this.props.setTextValue('0');
+        this.props.setTextValue('');
     };
 
     run = () => {
         const currentResult = this.props.result;
-        let result = parseFloat(this.props.display);
+        let result = parseFloat(this.props.display) || currentResult;
         if (this.props.operator !== Operators.NULL) {
             const secondValue = parseFloat(this.props.display);
 
@@ -66,8 +66,7 @@ class MainOperators extends Component<ConnectedProps<typeof connector> & WithSty
                 textResult = textResult.slice(0, pointIndex + 6);
                 result = parseFloat(textResult);
             }
-            this.props.setTextValue(result.toString());
-
+            this.props.setTextValue('');
         }
 
         this.props.setResult(result);
@@ -83,7 +82,7 @@ class MainOperators extends Component<ConnectedProps<typeof connector> & WithSty
                 <ToggleButton classes={classes} value={Operators.MULT}>X</ToggleButton>
                 <ToggleButton classes={classes} value={Operators.SUB}>-</ToggleButton>
                 <ToggleButton classes={classes} value={Operators.ADD}>+</ToggleButton>
-                <Button fullWidth style={{backgroundColor: '#FBD928'}} className={classes.root}
+                <Button fullWidth style={{backgroundColor: '#FBE496'}} className={`${classes.root} ${classes.label}`}
                         onClick={this.run}>=</Button>
             </ToggleButtonGroup>
         );
