@@ -1,20 +1,33 @@
-#root{
+#root {
     height: 100vh;
     width: 100vw;
 
 }
-body{
+
+body {
     margin: 0;
 }
 
-.MuiButton-root{
+.MuiButton-root {
     --min-height: 60px;
-    --font-size:24px;
-    border-radius: 30px!important;
-    border: none!important;
-    margin: 5px!important;
-    height: var(--min-height)!important;
+    --font-size: 24px;
+    border-radius: 30px !important;
+    border: none !important;
+    margin: 5px !important;
+    height: var(--min-height) !important;
     min-width: var(--min-height) !important;
     max-width: var(--min-height) !important;
-    font-size: var(--font-size)!important;;
+    font-size: var(--font-size) !important;;
+}
+
+.MuiToggleButton-root {
+    --min-height: 60px;
+    --font-size: 24px;
+    border-radius: 30px !important;
+    border: none !important;
+    margin: 5px !important;
+    height: var(--min-height) !important;
+    min-width: var(--min-height) !important;
+    max-width: var(--min-height) !important;
+    font-size: var(--font-size) !important;
 }

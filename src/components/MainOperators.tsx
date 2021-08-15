@@ -1,14 +1,30 @@
 import React, {Component} from 'react';
-import {Button, Grid, Theme, withStyles, WithStyles} from '@material-ui/core';
+import {Button, Theme, withStyles, WithStyles} from '@material-ui/core';
+import ToggleButton from '@material-ui/lab/ToggleButton';
 import {Operators, setCurrentOperator, setCurrentResult, setDisplayValue} from '../actions';
 import {connect, ConnectedProps} from 'react-redux';
 import {ProviderState} from '../reducers';
+import {ToggleButtonGroup} from '@material-ui/lab';
 
 
 const styles = (theme: Theme) => ({
-    mainOperators: {
-        background: '#C9C9C9',
-        boxShadow: '-4px -4px 12px #FFFFFF, 4px 4px 12px rgba(209, 205, 199, 0.5)'
+    root: {
+        background: '#F0F0F0',
+        filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
+
+        "&:hover": {
+            //you want this to be the same as the backgroundColor above
+            backgroundColor: "#F0F0F0"
+        }
+    },
+    label: {
+        color: '#808080'
+    },
+    selected: {
+        background: '#E6E5E5!important',
+        filter: 'none!important',
+        boxShadow: 'inset 4px 4px 12px rgba(209, 205, 199, 0.5), inset -4px -4px 12px #FFFFFF!important',
+        '& span': {color: '#000000'}
     }
 });
 
@@ -59,29 +75,17 @@ class MainOperators extends Component<ConnectedProps<typeof connector> & WithSty
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, operator} = this.props;
         return (
-            <React.Fragment>
-                <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={classes.mainOperators}
-                            onClick={() => this.activateOperator(Operators.DIV)}>/</Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={classes.mainOperators}
-                            onClick={() => this.activateOperator(Operators.MULT)}>x</Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={classes.mainOperators}
-                            onClick={() => this.activateOperator(Operators.SUB)}>-</Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={classes.mainOperators}
-                            onClick={() => this.activateOperator(Operators.ADD)}>+</Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="outlined" fullWidth className={classes.mainOperators} onClick={this.run}>=</Button>
-                </Grid>
-            </React.Fragment>
+            <ToggleButtonGroup exclusive={true} orientation={'vertical'} value={operator}
+                               onChange={(event, value) => this.activateOperator(value)}>
+                <ToggleButton classes={classes} value={Operators.DIV}>/</ToggleButton>
+                <ToggleButton classes={classes} value={Operators.MULT}>X</ToggleButton>
+                <ToggleButton classes={classes} value={Operators.SUB}>-</ToggleButton>
+                <ToggleButton classes={classes} value={Operators.ADD}>+</ToggleButton>
+                <Button fullWidth style={{backgroundColor: '#FBD928'}} className={classes.root}
+                        onClick={this.run}>=</Button>
+            </ToggleButtonGroup>
         );
     }
 }
