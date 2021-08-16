@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import {Button, withStyles, WithStyles} from '@material-ui/core';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import {Operators, setCurrentOperator, setCurrentResult, setDisplayValue} from '../actions';
+import {Button, ButtonGroup, withStyles, WithStyles} from '@material-ui/core';
+import {
+    addToExpression,
+    Operators,
+    resetExpression,
+    setCurrentResult
+} from '../actions';
 import {connect, ConnectedProps} from 'react-redux';
 import {ProviderState} from '../reducers';
-import {ToggleButtonGroup} from '@material-ui/lab';
 
 
 const styles = () => ({
@@ -19,72 +22,40 @@ const styles = () => ({
     },
     label: {
         color: '#808080'
-    },
-    selected: {
-        background: '#E6E5E5!important',
-        filter: 'none!important',
-        boxShadow: 'inset 4px 4px 12px rgba(209, 205, 199, 0.5), inset -4px -4px 12px #FFFFFF!important',
-        '& span': {color: '#000000'}
     }
 });
 
 
 class MainOperators extends Component<ConnectedProps<typeof connector> & WithStyles<typeof styles>> {
 
-    activateOperator = (value: Operators) => {
-        this.run();
-        this.props.setOperator(value);
-        this.props.setTextValue('');
-    };
-
-    run = () => {
-        const currentResult = this.props.result;
-        let result = parseFloat(this.props.display) || currentResult;
-        if (this.props.operator !== Operators.NULL) {
-            const secondValue = parseFloat(this.props.display);
-
-            switch (this.props.operator) {
-                case Operators.ADD:
-                    result = currentResult + secondValue;
-                    break;
-                case Operators.SUB:
-                    result = currentResult - secondValue;
-                    break;
-                case Operators.MULT:
-                    result = currentResult * secondValue;
-                    break;
-                case Operators.DIV:
-                    result = currentResult / secondValue;
-                    break;
-            }
-
-            this.props.setOperator(Operators.NULL);
-
-            let textResult = result.toString();
-            const pointIndex = textResult.indexOf('.');
-            if (pointIndex !== -1) {
-                textResult = textResult.slice(0, pointIndex + 6);
-                result = parseFloat(textResult);
-            }
-            this.props.setTextValue('');
+    activateOperator(value: Operators) {
+        this.props.addToExpression(value);
+        if (this.props.expression.length > 0) {
+            this.props.setCurrentResult(eval(this.props.expression.replace('x', '*')));
         }
+    }
 
-        this.props.setResult(result);
-
-    };
+    run() {
+        if (this.props.expression.length > 0) {
+            const result = eval(this.props.expression.replace('x', '*'));
+            this.props.setCurrentResult(result);
+            this.props.resetExpression();
+            this.props.addToExpression(result.toString())
+        }
+    }
 
     render() {
-        const {classes, operator} = this.props;
+        // const color = ["#ADD8E6", "#87CEEB", "87CEFA"];
+
+        const {classes} = this.props;
         return (
-            <ToggleButtonGroup exclusive={true} orientation={'vertical'} value={operator}
-                               onChange={(event, value) => this.activateOperator(value)}>
-                <ToggleButton classes={classes} value={Operators.DIV}>/</ToggleButton>
-                <ToggleButton classes={classes} value={Operators.MULT}>X</ToggleButton>
-                <ToggleButton classes={classes} value={Operators.SUB}>-</ToggleButton>
-                <ToggleButton classes={classes} value={Operators.ADD}>+</ToggleButton>
-                <Button fullWidth style={{backgroundColor: '#FBE496'}} className={`${classes.root} ${classes.label}`}
-                        onClick={this.run}>=</Button>
-            </ToggleButtonGroup>
+            <ButtonGroup orientation={'vertical'}>
+                <Button classes={classes} onClick={() => this.activateOperator(Operators.DIV)}>/</Button>
+                <Button classes={classes} onClick={() => this.activateOperator(Operators.MULT)}>X</Button>
+                <Button classes={classes} onClick={() => this.activateOperator(Operators.SUB)}>-</Button>
+                <Button classes={classes} onClick={() => this.activateOperator(Operators.ADD)}>+</Button>
+                <Button classes={classes} onClick={() => this.run()} style={{backgroundColor: '#87CEFA'}}>=</Button>
+            </ButtonGroup>
         );
     }
 }
@@ -93,14 +64,15 @@ const mapStateToProps = (state: ProviderState) => {
     return {
         operator: state.operator,
         display: state.display,
-        result: state.result
+        result: state.result,
+        expression: state.expression
     };
 };
 
 const connector = connect(mapStateToProps, {
-    setOperator: setCurrentOperator,
-    setResult: setCurrentResult,
-    setTextValue: setDisplayValue
+    setCurrentResult,
+    addToExpression,
+    resetExpression
 });
 
 export default withStyles(styles)(connector(MainOperators));

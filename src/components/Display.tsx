@@ -6,9 +6,32 @@ import {WithStyles} from '@material-ui/core/styles/withStyles';
 
 // A style sheet
 const useStyles = () => ({
-    display: {
-        height: '100%',
+    root: {
+        height: '95%',
+        display: 'flex!important',
+        flexFlow: 'column wrap!important',
+        padding: '5px!important',
+    },
+    expression: {
         marginTop: '0!important',
+        flexGrow: 3,
+        '& div': {
+            background: 'none!important',
+            height: '100%',
+            '& input': {
+                textAlign: 'end',
+                fontSize: '36px',
+                color: 'white',
+                position: 'absolute',
+                bottom: '5px',
+                right: 0,
+            }
+        }
+    },
+    display: {
+        marginTop: '0!important',
+        flexBasis: 'auto!important',
+        flexGrow: 1,
         '& div': {
             background: 'none!important',
             height: '100%',
@@ -26,25 +49,23 @@ const useStyles = () => ({
 
 class Display extends Component<ConnectedProps<typeof connector> & WithStyles<typeof useStyles>> {
 
-    get displayValue() {
-        const {display, result} = this.props;
+    get expression() {
+        return this.props.expression;
+    }
 
-        if (display === '') {
-            let textResult = result.toString();
-            const pointIndex = textResult.indexOf('.');
-            if (pointIndex !== -1) {
-                textResult = textResult.slice(0, pointIndex + 6);
-            }
-            return textResult;
-        }
-        return this.props.display;
+    get displayResult() {
+        return this.props.result.toString();
     }
 
     render() {
         const {classes} = this.props;
         return (
-            <TextField id="value" className={classes.display} value={this.displayValue}
-                       variant="filled" fullWidth margin="dense" disabled={true}/>
+            <div className={classes.root}>
+                <TextField id="value1" className={classes.expression} value={this.expression}
+                           variant="filled" fullWidth margin="dense" disabled={true}/>
+                <TextField id="value" className={classes.display} value={this.displayResult}
+                           variant="filled" fullWidth margin="dense" disabled={true}/>
+            </div>
         );
     }
 }
@@ -52,8 +73,8 @@ class Display extends Component<ConnectedProps<typeof connector> & WithStyles<ty
 
 const mapStateToProps = (state: ProviderState) => {
     return {
-        display: state.display,
-        result: state.result
+        result: state.result,
+        expression: state.expression
     };
 };
 

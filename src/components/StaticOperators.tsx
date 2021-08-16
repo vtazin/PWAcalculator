@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import {Button, Grid, withStyles, WithStyles} from '@material-ui/core';
 import {connect, ConnectedProps} from 'react-redux';
-import {Operators, setCurrentOperator, setCurrentResult, setDisplayValue} from '../actions';
+import {
+    addToExpression,
+    resetExpression,
+    setCurrentResult
+} from '../actions';
 import {ProviderState} from '../reducers';
 
 
@@ -23,41 +27,27 @@ class StaticOperators extends Component<ConnectedProps<typeof connector> & WithS
 
 
     clear = () => {
-        this.props.setOperator(Operators.NULL);
-        this.props.setResult(0);
-        this.props.setTextValue('0');
+        this.props.setCurrentResult(0);
+        this.props.resetExpression();
     };
 
     percent = () => {
-        let result = this.props.result;
-        result /= 100;
-
-        let textResult = result.toString();
-        const pointIndex = textResult.indexOf('.');
-        if (pointIndex !== -1) {
-            textResult = textResult.slice(0, pointIndex + 6);
-            result = parseFloat(textResult);
+        if (this.props.expression.length > 0) {
+            let result = eval(this.props.expression.replace('x', '*'));
+            result /= 100;
+            this.props.setCurrentResult(result);
+            this.props.resetExpression();
+            this.props.addToExpression(result.toString())
         }
-        this.props.setTextValue(result.toString());
-
-        this.props.setResult(result);
-
-        this.props.setOperator(Operators.NULL);
     };
 
     negative = () => {
-        const {display} = this.props;
-        if (display !== '') {
-            let result = parseFloat(display);
+        if (this.props.expression.length > 0) {
+            let result = eval(this.props.expression.replace('x', '*'));
             result *= -1;
-
-            let textResult = result.toString();
-            const pointIndex = textResult.indexOf('.');
-            if (pointIndex !== -1) {
-                textResult = textResult.slice(0, pointIndex + 6);
-                result = parseFloat(textResult);
-            }
-            this.props.setTextValue(result.toString());
+            this.props.setCurrentResult(result);
+            this.props.resetExpression();
+            this.props.addToExpression(result.toString())
         }
     };
 
@@ -66,7 +56,7 @@ class StaticOperators extends Component<ConnectedProps<typeof connector> & WithS
         return (
             <Grid container item xs={12}>
                 <Grid item xs={4}>
-                    <Button classes={classes} fullWidth style={{backgroundColor: '#FBDAD8'}}
+                    <Button classes={classes} fullWidth style={{backgroundColor: '#eec5ed'}}
                             onClick={this.clear}>AC</Button>
                 </Grid>
                 <Grid item xs={4}>
@@ -85,14 +75,15 @@ class StaticOperators extends Component<ConnectedProps<typeof connector> & WithS
 const mapStateToProps = (state: ProviderState) => {
     return {
         display: state.display,
-        result: state.result
+        result: state.result,
+        expression: state.expression
     }
 };
 
 const connector = connect(mapStateToProps, {
-    setOperator: setCurrentOperator,
-    setResult: setCurrentResult,
-    setTextValue: setDisplayValue
+    setCurrentResult,
+    addToExpression,
+    resetExpression
 });
 
 export default withStyles(styles)(connector(StaticOperators));

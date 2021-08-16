@@ -2,18 +2,26 @@ export enum ActionType {
     SET_CURRENT_OPERATOR = 'SET_CURRENT_OPERATOR',
     SET_CURRENT_RESULT = 'SET_CURRENT_RESULT',
     SET_DISPLAY_VALUE = 'SET_DISPLAY_VALUE',
-    ADD_DIGIT = 'ADD_DIGIT'
+    ADD_DIGIT = 'ADD_DIGIT',
+    ADD_TO_EXPRESSION = 'ADD_TO_EXPRESSION',
+    RESET_EXPRESSION = 'RESET_EXPRESSION',
 }
 
 export enum Operators {
-    NULL,
-    ADD,
-    SUB,
-    MULT,
-    DIV
+    NULL = '',
+    ADD = '+',
+    SUB = '-',
+    MULT = 'x',
+    DIV = '/'
 }
 
-export type CalculatorAction = DisplayAction | DigitAction | ResultAction | OperatorAction;
+export type CalculatorAction =
+    DisplayAction
+    | DigitAction
+    | ResultAction
+    | OperatorAction
+    | ExpressionAction
+    | ResetExpressionAction;
 
 type DispatchType = (args: CalculatorAction) => CalculatorAction;
 
@@ -34,6 +42,15 @@ type OperatorAction = {
     payload: Operators;
 }
 
+type ExpressionAction = {
+    type: ActionType.ADD_TO_EXPRESSION;
+    payload: string;
+}
+type ResetExpressionAction = {
+    type: ActionType.RESET_EXPRESSION;
+    payload: undefined;
+}
+
 
 export function setDisplayValue(payload: string) {
     const action: DisplayAction = {
@@ -41,7 +58,7 @@ export function setDisplayValue(payload: string) {
         payload,
     };
 
-    return simulateHttpRequest(action)
+    return (dispatch: DispatchType) => dispatch(action)
 }
 
 export function addDigit(payload: string) {
@@ -50,18 +67,15 @@ export function addDigit(payload: string) {
         payload,
     };
 
-    return simulateHttpRequest(action)
+    return (dispatch: DispatchType) => dispatch(action)
 }
 
 
-export function setCurrentResult(payload: number) {
-    const action: ResultAction = {
-        type: ActionType.SET_CURRENT_RESULT,
-        payload,
-    };
+export const setCurrentResult = (payload: number) => (dispatch: DispatchType) => dispatch({
+    type: ActionType.SET_CURRENT_RESULT,
+    payload,
+});
 
-    return simulateHttpRequest(action)
-}
 
 export function setCurrentOperator(payload: Operators) {
     const action: OperatorAction = {
@@ -69,10 +83,15 @@ export function setCurrentOperator(payload: Operators) {
         payload,
     };
 
-    return simulateHttpRequest(action)
+    return (dispatch: DispatchType) => dispatch(action)
 }
 
 
-export function simulateHttpRequest(action: CalculatorAction) {
-    return (dispatch: DispatchType) => dispatch(action);
-}
+export const addToExpression = (payload: string) => (dispatch: DispatchType) => dispatch({
+    type: ActionType.ADD_TO_EXPRESSION,
+    payload,
+});
+export const resetExpression = () => (dispatch: DispatchType) => dispatch({
+    type: ActionType.RESET_EXPRESSION,
+    payload: undefined
+});

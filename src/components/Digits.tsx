@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Grid, WithStyles, withStyles} from '@material-ui/core';
 import {connect, ConnectedProps} from 'react-redux';
-import {addDigit} from '../actions';
+import {addToExpression, setCurrentResult} from '../actions';
+import {ProviderState} from '../reducers';
 
 
 const styles = () => ({
@@ -22,8 +23,13 @@ const styles = () => ({
 class Digits extends Component<ConnectedProps<typeof connector> & WithStyles<typeof styles>> {
 
     addDigit = (event: any) => {
-        let digit = (event.target as HTMLButtonElement)!.innerText;
-        this.props.addDigit(digit);
+        const digit = (event.target as HTMLButtonElement)!.innerText;
+        this.props.addToExpression(digit);
+        window.setTimeout(() => {
+            if (this.props.expression.length > 0) {
+                this.props.setCurrentResult(eval(this.props.expression.replace('x','*')));
+            }
+        }, 3);
     };
 
     render() {
@@ -88,8 +94,15 @@ class Digits extends Component<ConnectedProps<typeof connector> & WithStyles<typ
     }
 }
 
-const connector = connect(undefined, {
-    addDigit
+const mapStateToProps = (state: ProviderState) => {
+    return {
+        expression: state.expression
+    }
+};
+
+const connector = connect(mapStateToProps, {
+    addToExpression,
+    setCurrentResult
 });
 
 export default withStyles(styles)(connector(Digits));
