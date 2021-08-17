@@ -1,11 +1,7 @@
-import React, {Component} from 'react';
-import {TextField, withStyles} from '@material-ui/core';
-import {ProviderState} from '../reducers';
-import {connect, ConnectedProps} from 'react-redux';
-import {WithStyles} from '@material-ui/core/styles/withStyles';
+import {makeStyles, TextField} from '@material-ui/core';
 
 // A style sheet
-const useStyles = () => ({
+const useStyles = makeStyles({
     root: {
         height: '95%',
         display: 'flex!important',
@@ -47,37 +43,17 @@ const useStyles = () => ({
     }
 });
 
-class Display extends Component<ConnectedProps<typeof connector> & WithStyles<typeof useStyles>> {
+const Display = ({expression, result}: { expression: string; result: number; }) => {
+    const classes = useStyles();
 
-    get expression() {
-        return this.props.expression;
-    }
-
-    get displayResult() {
-        return this.props.result.toString();
-    }
-
-    render() {
-        const {classes} = this.props;
-        return (
-            <div className={classes.root}>
-                <TextField id="value1" className={classes.expression} value={this.expression}
-                           variant="filled" fullWidth margin="dense" disabled={true}/>
-                <TextField id="value" className={classes.display} value={this.displayResult}
-                           variant="filled" fullWidth margin="dense" disabled={true}/>
-            </div>
-        );
-    }
-}
-
-
-const mapStateToProps = (state: ProviderState) => {
-    return {
-        result: state.result,
-        expression: state.expression
-    };
+    return (
+        <div className={classes.root}>
+            <TextField id="value1" className={classes.expression} value={expression}
+                       variant="filled" fullWidth margin="dense" disabled={true}/>
+            <TextField id="value" className={classes.display} value={result.toString()}
+                       variant="filled" fullWidth margin="dense" disabled={true}/>
+        </div>
+    );
 };
 
-const connector = connect(mapStateToProps, {});
-
-export default withStyles(useStyles)(connector(Display));
+export default Display;

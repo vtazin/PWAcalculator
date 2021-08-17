@@ -3,12 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import Root from './Root';
 
 ReactDOM.render(
-  <Root>
-    <App />
-  </Root>,
+    <App />,
   document.getElementById('root')
 );
 
