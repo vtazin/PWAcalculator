@@ -38,8 +38,8 @@ export default function Device() {
                 m={0}
             >
                 <Box display={{xs: 'none', sm: 'block'}} flexShrink={1}>
-                    <AdditionalButtons result={result} setResult={setResult} expression={expression}
-                                 setExpression={setExpression}/>
+                    {/*result={result} setResult={setResult} expression={expression}setExpression={setExpression}*/}
+                    <AdditionalButtons />
                 </Box>
                 <Box flexShrink={1}>
                     <MainButtons result={result} setResult={setResult} expression={expression}
