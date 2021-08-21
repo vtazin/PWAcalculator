@@ -9,13 +9,14 @@ body {
 }
 
 .MuiButton-root {
-    --min-height: 60px;
-    --font-size: 24px;
-    border-radius: 30px !important;
+    --min-height: calc(100vh/12);
+    --min-radius:calc(100vh/24);
+    --font-size: var(--min-radius);
+    border-radius: var(--min-radius) !important;
     border: none !important;
     margin: 5px !important;
     height: var(--min-height) !important;
     min-width: var(--min-height) !important;
     max-width: var(--min-height) !important;
-    font-size: var(--font-size) !important;;
+    font-size: var(--font-size) !important;
 }

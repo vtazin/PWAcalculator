@@ -1,4 +1,5 @@
-import {makeStyles, TextField} from '@material-ui/core';
+import {Box, makeStyles, TextField} from '@material-ui/core';
+import {useEffect, useState} from 'react';
 
 // A style sheet
 const useStyles = makeStyles({
@@ -9,19 +10,14 @@ const useStyles = makeStyles({
         padding: '5px!important',
     },
     expression: {
-        marginTop: '0!important',
-        flexGrow: 3,
+        flexGrow: 2,
+        textAlign: 'end',
+        color: 'white',
+        position: 'relative',
         '& div': {
-            background: 'none!important',
-            height: '100%',
-            '& input': {
-                textAlign: 'end',
-                fontSize: '36px',
-                color: 'white',
-                position: 'absolute',
-                bottom: '5px',
-                right: 0,
-            }
+            position: 'absolute',
+            bottom: '5px',
+            right: '5px'
         }
     },
     display: {
@@ -33,8 +29,8 @@ const useStyles = makeStyles({
             height: '100%',
             '& input': {
                 textAlign: 'end',
-                fontSize: '36px',
-                color: 'white',
+                color: '#DDDDDD',
+                fontSize: '18px',
                 position: 'absolute',
                 bottom: '5px',
                 right: 0,
@@ -44,12 +40,34 @@ const useStyles = makeStyles({
 });
 
 const Display = ({expression, result}: { expression: string; result: number; }) => {
+
+    const [fontSize, setFontSize] = useState('28px');
+    useEffect(() => {
+        if(expression.length>23){
+            setFontSize('16px');
+        } else if (expression.length > 18) {
+            setFontSize('24px');
+        }
+    }, [expression]);
+
     const classes = useStyles();
+    // const displayValue = () => {
+    //     let textValue = result.toString();
+    //     let additionalValue = '';
+    //     if (textValue.indexOf('e') !== -1) {
+    //         additionalValue = textValue.slice(textValue.indexOf('e'));
+    //     }
+    //     textValue = textValue.slice(0, 14 - additionalValue.length);
+    //     return parseFloat(textValue + additionalValue);
+    // };
 
     return (
         <div className={classes.root}>
-            <TextField id="value1" className={classes.expression} value={expression}
-                       variant="filled" fullWidth margin="dense" disabled={true}/>
+            <Box component="div" className={classes.expression}>
+                <div style={{fontSize}}>
+                    {expression}
+                </div>
+            </Box>
             <TextField id="value" className={classes.display} value={result.toString()}
                        variant="filled" fullWidth margin="dense" disabled={true}/>
         </div>
