@@ -9,8 +9,8 @@ body {
 }
 
 .MuiButton-root {
-    --min-height: calc(100vh/12);
-    --min-radius:calc(100vh/24);
+    --min-height: calc(100vh/11);
+    --min-radius:calc(100vh/22);
     --font-size: var(--min-radius);
     border-radius: var(--min-radius) !important;
     border: none !important;

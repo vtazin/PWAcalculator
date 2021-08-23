@@ -1,4 +1,17 @@
 import {Button, Grid, makeStyles} from '@material-ui/core';
+import {
+    CircleSmall, Division, Equal,
+    Minus, Numeric0,
+    Numeric1,
+    Numeric2,
+    Numeric3,
+    Numeric4,
+    Numeric5,
+    Numeric6, Numeric7,
+    Numeric8,
+    Numeric9, PercentOutline,
+    Plus, PlusMinus, Close, BackspaceOutline, AlphaCCircleOutline
+} from 'mdi-material-ui';
 
 enum Operators {
     NULL = '',
@@ -91,7 +104,7 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
 
     const backSpace = () => {
         if (expression.length > 0) {
-            const newExpression=expression.substr(0, expression.length - 1);
+            const newExpression = expression.substr(0, expression.length - 1);
             setExpression(newExpression);
             setResult(eval(newExpression.replace('x', '*')));
         }
@@ -103,72 +116,112 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
         <Grid container item xs={12}>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} style={{backgroundColor: '#eec5ed'}} onClick={clear}>AC</Button>
+                    <Button classes={classes} style={{backgroundColor: '#eec5ed'}} onClick={clear}>
+                        <AlphaCCircleOutline/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => activateOperator(Operators.MULT)}>X</Button>
+                    <Button classes={classes} onClick={() => activateOperator(Operators.MULT)}>
+                        <Close/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => activateOperator(Operators.DIV)}>/</Button>
+                    <Button classes={classes} onClick={() => activateOperator(Operators.DIV)}>
+                        <Division/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={backSpace} style={{backgroundColor: 'red'}}>BS</Button>
-                </Grid>
-            </Grid>
-            <Grid container item xs={12}>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>7</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>8</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>9</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={negative}>+/-</Button>
+                    <Button classes={classes} onClick={backSpace}>
+                        <BackspaceOutline/>
+                    </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>4</Button>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric7/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>5</Button>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric8/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>6</Button>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric9/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => activateOperator(Operators.SUB)}>-</Button>
-                </Grid>
-            </Grid>
-            <Grid container item xs={12}>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>1</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>2</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>3</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => activateOperator(Operators.ADD)}>+</Button>
+                    <Button classes={classes} onClick={negative}>
+                        <PlusMinus/>
+                    </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={percent}>%</Button>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric4/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>0</Button>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric5/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>.</Button>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric6/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => run()} style={{backgroundColor: '#87CEFA'}}>=</Button>
+                    <Button classes={classes} onClick={() => activateOperator(Operators.SUB)}>
+                        <Minus/>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid container item xs={12}>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric1/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric2/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric3/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={() => activateOperator(Operators.ADD)}>
+                        <Plus/>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid container item xs={12}>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={percent}>
+                        <PercentOutline/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={addDigit}>
+                        <Numeric0/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={addDigit}>
+                        <CircleSmall/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button classes={classes} onClick={() => run()} style={{backgroundColor: '#87CEFA'}}>
+                        <Equal/>
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>

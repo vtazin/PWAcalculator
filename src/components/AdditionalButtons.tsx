@@ -1,10 +1,22 @@
-import {Button, Grid, makeStyles} from '@material-ui/core';
+import {Button, Grid, makeStyles, SvgIcon} from '@material-ui/core';
+import {
+    AlphaE,
+    Exclamation,
+    Exponent,
+    FormatSuperscript,
+    MathCos,
+    MathLog,
+    MathSin,
+    MathTan,
+    Pi,
+    SquareRoot
+} from 'mdi-material-ui';
 
 const useStyles = makeStyles({
     root: {
         background: '#F0F0F0',
         filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
-        fontSize:'10px!important',
+        fontSize: '10px!important',
         "&:hover": {
             //you want this to be the same as the backgroundColor above
             backgroundColor: "#F0F0F0"
@@ -88,66 +100,107 @@ const AdditionalButtons = () => {
         <Grid container item xs={12}>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>(</Button>
+                    <Button disabled classes={classes}>
+                        <SvgIcon>
+                            <path fill="currentColor" d="M12 4 Q2 12 12 20Q6.5 12 12 4Z" />
+                        </SvgIcon>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>)</Button>
+                    <Button disabled classes={classes} >
+                        <SvgIcon>
+                            <path fill="currentColor" d="M12 4 Q22 12 12 20Q17.5 12 12 4Z" />
+                        </SvgIcon>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>1/x</Button>
+                    <Button disabled classes={classes} style={{background:'red'}} >1/x</Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>x^2</Button>
-                </Grid>
-            </Grid>
-            <Grid container item xs={12}>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>x^3</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>x^y</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>x!</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>sqrt</Button>
+                    <Button disabled classes={classes}>
+                        <FormatSuperscript/>
+                    </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>ySQRT(x)</Button>
+                    <Button disabled classes={classes} >
+                        <SvgIcon>
+                            <path  fill="currentColor" d="M16,7.41L11.41,12L16,16.59L14.59,18L10,13.41L5.41,18L4,16.59L8.59,12L4,7.41L5.41,6L10,10.59L14.59,6L16,7.41
+M18 3.8Q19.37 3 20.75 3.8Q21.33 5 20.5 6 Q22.33 7 20.5 8.75Q19.12 9.75 18 9V8.25Q19.12 9 19.7 8Q20.9 7 19.6 6.3H18.5V5.7H19.7Q20.66 5 20 4.2Q19.25 3.6 18 4.6V3.8 Z" />
+                        </SvgIcon>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>e</Button>
+                    <Button disabled classes={classes}>
+                        <Exponent/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>ln</Button>
+                    <Button disabled classes={classes}>
+                        <Exclamation/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>log</Button>
-                </Grid>
-            </Grid>
-            <Grid container item xs={12}>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>sin</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>cos</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>tan</Button>
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>Inv</Button>
+                    <Button disabled classes={classes}>
+                        <SquareRoot/>
+                    </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>Rad</Button>
+                    <Button disabled classes={classes} style={{background:'red'}} >ySQRT(x)</Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button disabled classes={classes}>pi</Button>
+                    <Button disabled classes={classes}>
+                        <AlphaE/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <SvgIcon>
+                            <path fill="currentColor" d="M4 7V17H10V15H6V7H4Z M12 7V17H14V10L18 17H20V7H18V14L14 7H12"/>
+                        </SvgIcon>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <MathLog/>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid container item xs={12}>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <MathSin/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <MathCos/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <MathTan/>
+                    </Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <SvgIcon>
+                            <path fill="currentColor" d="M2 6V16H4V6H2Z M6 6V16H8V9L12 16H14V6H12V13L8 6H6Z M15 6L17.5 16 H19.5L22 6H20L18.5 14L17 6H16Z" />
+                        </SvgIcon>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid container item xs={12}>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes} style={{background:'red'}}  >Rad</Button>
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" item xs={3}>
+                    <Button disabled classes={classes}>
+                        <Pi/>
+                    </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
                     <Button disabled classes={classes}/>
