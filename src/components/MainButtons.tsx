@@ -1,13 +1,15 @@
 import {Button, Grid, makeStyles} from '@material-ui/core';
 import {
     CircleSmall, Division, Equal,
-    Minus, Numeric0,
+    Minus,
+    Numeric0,
     Numeric1,
     Numeric2,
     Numeric3,
     Numeric4,
     Numeric5,
-    Numeric6, Numeric7,
+    Numeric6,
+    Numeric7,
     Numeric8,
     Numeric9, PercentOutline,
     Plus, PlusMinus, Close, BackspaceOutline, AlphaCCircleOutline
@@ -39,9 +41,8 @@ const useStyles = makeStyles({
 
 const MainButtons = ({expression, setExpression, result, setResult}: { expression: string; setExpression: (value: string) => void; result: number; setResult: (value: number) => void; }) => {
 
-    const addDigit = (event: any) => {
-        const digit = (event.target as HTMLButtonElement)!.innerText;
-        addToExpression(digit);
+    const addDigit = (digit = 0) => {
+        addToExpression(digit.toString());
     };
 
 
@@ -138,17 +139,17 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(7)}>
                         <Numeric7/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(8)}>
                         <Numeric8/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(9)}>
                         <Numeric9/>
                     </Button>
                 </Grid>
@@ -160,17 +161,17 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(4)}>
                         <Numeric4/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(5)}>
                         <Numeric5/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(6)}>
                         <Numeric6/>
                     </Button>
                 </Grid>
@@ -182,17 +183,17 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(1)}>
                         <Numeric1/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(2)}>
                         <Numeric2/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(3)}>
                         <Numeric3/>
                     </Button>
                 </Grid>
@@ -209,12 +210,12 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addDigit(0)}>
                         <Numeric0/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={addDigit}>
+                    <Button classes={classes} onClick={() => addToExpression('.')}>
                         <CircleSmall/>
                     </Button>
                 </Grid>
