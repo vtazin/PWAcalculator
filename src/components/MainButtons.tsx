@@ -14,6 +14,7 @@ import {
     Numeric9, PercentOutline,
     Plus, PlusMinus, Close, BackspaceOutline, AlphaCCircleOutline
 } from 'mdi-material-ui';
+import PostfixNotationExpression from '../utils/PostfixNotationExpression';
 
 enum Operators {
     ADD = '+',
@@ -39,10 +40,29 @@ const useStyles = makeStyles({
 });
 
 
-const MainButtons = ({expression, setExpression, result, setResult}: { expression: string; setExpression: (value: string) => void; result: number; setResult: (value: number) => void; }) => {
+const MainButtons = ({expression, setExpression, setResult}: { expression: string; setExpression: (value: string) => void; setResult: (value: number) => void; }) => {
 
     const addToExpression = (value: string) => {
         let result = expression;
+        if (value === '0@') {
+            if (result.match(/0@[\d.]+$/)) {
+                result = result.replace(/0@([\d.]+)$/, '$1');
+            } else {
+                result = result.replace(/([\d.]+)$/, '0@$1');
+            }
+            const evalResult = PostfixNotationExpression.result(result);
+            if (!isNaN(evalResult)) {
+                setResult(evalResult);
+            }
+            setExpression(result);
+            return;
+        }
+
+        if (value === '%') {
+            if (!result.match(/[+-][\d.]+$/) && !result.match(/^[\d.]+$/)) {
+                return;
+            }
+        }
         if (value === '0' && result === '0') {
             return;
         }
@@ -57,7 +77,7 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
             }
             result += value;
         }
-        const evalResult = calc(result);
+        const evalResult = PostfixNotationExpression.result(result);
         if (!isNaN(evalResult)) {
             setResult(evalResult);
         }
@@ -70,7 +90,7 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
             if (newExpression.length === 0 || (newExpression.length === 1 && newExpression[0] === '-')) {
                 clear();
             } else {
-                const evalResult = calc(newExpression);
+                const evalResult = PostfixNotationExpression.result(newExpression);
                 if (!isNaN(evalResult)) {
                     setResult(evalResult);
                 }
@@ -79,77 +99,45 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
         }
     };
 
-    const calc = (expression: string): number => {
+    // const calcOperation = (operator: Operators, expression: string) => {
+    //     const operatorIndex = expression.indexOf(operator);
+    //
+    //     if (operatorIndex !== -1) {
+    //         let value1 = 0, value2 = 0;
+    //         if (operator !== Operators.PRC) {
+    //             value1 = PostfixNotationExpression.result(expression.substring(0, operatorIndex));
+    //             value2 = PostfixNotationExpression.result(expression.substring(operatorIndex + 1));
+    //         }
+    //         switch (operator) {
+    //             case Operators.MULT:
+    //                 return value1 * value2;
+    //             case Operators.DIV:
+    //                 return value1 / value2;
+    //             case Operators.ADD:
+    //                 return value1 + value2;
+    //             case Operators.SUB:
+    //                 return (value1 || 0) - value2;
+    //             case Operators.PRC:
+    //                 const beforPRC = expression.substring(0, operatorIndex);
+    //                 const kInd = Math.max(beforPRC.lastIndexOf('+'), beforPRC.lastIndexOf('-'));
+    //
+    //                 const k = parseFloat(beforPRC.substring(kInd + 1)) / 100;
+    //
+    //                 const operBefore = beforPRC.substr(kInd, 1);
+    //
+    //                 const expressionBefore = beforPRC.substring(0, kInd);
+    //
+    //                 const operBeforeInd = Math.max(expressionBefore.lastIndexOf('+'), expressionBefore.lastIndexOf('-'));
+    //                 const x = PostfixNotationExpression.result(expressionBefore.substring(operBeforeInd + 1, kInd));
+    //                 const y = k * x;
+    //                 return PostfixNotationExpression.result(expressionBefore.substring(0, operBeforeInd + 1) + x + operBefore + y + expression.substring(operatorIndex + 1));
+    //             default:
+    //                 return result;
+    //         }
+    //     }
+    //     return undefined;
+    // };
 
-        let operator, currentResult;
-
-        if (currentResult === undefined) {
-            operator = Operators.PRC;
-            currentResult = calcOperation(operator, expression);
-        }
-
-        if (currentResult === undefined) {
-            operator = Operators.ADD;
-            currentResult = calcOperation(operator, expression);
-        }
-        if (currentResult === undefined) {
-            operator = Operators.SUB;
-            currentResult = calcOperation(operator, expression);
-        }
-        if (currentResult === undefined) {
-            operator = Operators.DIV;
-            currentResult = calcOperation(operator, expression);
-        }
-        if (currentResult === undefined) {
-            operator = Operators.MULT;
-            currentResult = calcOperation(operator, expression);
-        }
-
-        if (currentResult === undefined) {
-            currentResult = parseFloat(expression);
-        }
-
-        return currentResult;
-    };
-
-    const calcOperation = (operator: Operators, expression: string) => {
-        const operatorIndex = expression.indexOf(operator);
-
-        if (operatorIndex !== -1) {
-            let value1=0,value2=0;
-            if (operator !== Operators.PRC) {
-                value1 = calc(expression.substring(0, operatorIndex));
-                value2 = calc(expression.substring(operatorIndex + 1));
-            }
-            switch (operator) {
-                case Operators.MULT:
-                    return value1 * value2;
-                case Operators.DIV:
-                    return value1 / value2;
-                case Operators.ADD:
-                    return value1 + value2;
-                case Operators.SUB:
-                    return (value1 || 0) - value2;
-                case Operators.PRC:
-                    const beforPRC = expression.substring(0, operatorIndex);
-                    const kInd = Math.max(beforPRC.lastIndexOf('+'), beforPRC.lastIndexOf('-'));
-
-                    const k = parseFloat(beforPRC.substring(kInd + 1)) / 100;
-
-                    const operBefore = beforPRC.substr(kInd, 1);
-
-                    const expressionBefore=beforPRC.substring(0,kInd);
-
-                    const operBeforeInd = Math.max(expressionBefore.lastIndexOf('+'), expressionBefore.lastIndexOf('-'));
-                    const x = calc(expressionBefore.substring(operBeforeInd + 1, kInd));
-                    const y = k * x;
-                    return calc(expressionBefore.substring(0, operBeforeInd + 1) + x + operBefore + y + expression.substring(operatorIndex + 1));
-                default:
-                    return result;
-            }
-        }
-        return undefined;
-    };
 
     const clear = () => {
         setResult(0);
@@ -157,20 +145,25 @@ const MainButtons = ({expression, setExpression, result, setResult}: { expressio
     };
 
     const negative = () => {
-        if (expression.length > 0) {
-            let result = calc(expression);
-            result *= -1;
-            setResult(result);
-            setExpression(result.toString())
-        }
+        // if (expression.length > 0) {
+        //     let result = PostfixNotationExpression.result(expression);
+        //     result *= -1;
+        //     setResult(result);
+        //     setExpression(result.toString())
+        // }
+        addToExpression('0@');
     };
 
     const run = () => {
         if (expression.length > 0) {
-            const result = calc(expression);
+            const result = PostfixNotationExpression.result(expression);
             if (!isNaN(result)) {
                 setResult(result);
-                setExpression(result.toString())
+                let expression = Math.abs(result).toString();
+                if (result < 0) {
+                    expression = '0@' + expression;
+                }
+                setExpression(expression)
             }
         }
     };

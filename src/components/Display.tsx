@@ -65,7 +65,7 @@ const Display = ({expression, result}: { expression: string; result: number; }) 
         <div className={classes.root}>
             <Box component="div" className={classes.expression}>
                 <div style={{fontSize}}>
-                    {expression}
+                    {expression.replaceAll(/0@([\d.]+)/g, '(-$1)')}
                 </div>
             </Box>
             <TextField id="value" className={classes.display} value={result.toString()}
