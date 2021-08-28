@@ -38,10 +38,11 @@ export default class PostfixNotationExpression {
                 return 2;
             case "^":
             case "%":
-            case "@":
                 return 3;
-            default:
+            case "@":
                 return 4;
+            default:
+                return 5;
         }
     }
 
@@ -60,7 +61,7 @@ export default class PostfixNotationExpression {
                     } else if (this.getPriority(c) > this.getPriority(stack.peek)) {
                         stack.push(c);
                     } else {
-                        while (stack.count > 0 && (this.getPriority(c) <= this.getPriority(stack.peek)|| stack.peek==='@')) {
+                        while (stack.count > 0 && (this.getPriority(c) <= this.getPriority(stack.peek) || stack.peek === '@')) {
                             outputSeparated.push(stack.pop());
                         }
                         stack.push(c);
@@ -140,9 +141,17 @@ export default class PostfixNotationExpression {
                         }
                         case "%": {
                             const a = parseFloat(stack.pop()) / 100;
-                            const b = parseFloat(stack.pop());
-                            stack.push(b.toString());
-                            summ = b * a;
+                            if (queue.length === 0) {
+                                summ = a;
+                            } else {
+                                if (queue[queue.length - 1] === '+' || queue[queue.length - 1] === '-') {
+                                    const b = parseFloat(stack.pop());
+                                    stack.push(b.toString());
+                                    summ = b * a;
+                                } else if (queue[queue.length - 1] === 'x') {
+                                    summ = a;
+                                }
+                            }
                             break;
                         }
                         case "@": {

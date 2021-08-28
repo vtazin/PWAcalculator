@@ -59,7 +59,7 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
         }
 
         if (value === '%') {
-            if (!result.match(/[+-][\d.]+$/) && !result.match(/^[\d.]+$/)) {
+            if (!result.match(/[+x-](0@)?[\d.]+$/) && !result.match(/^(0@)?[\d.]+$/)) {
                 return;
             }
         }
@@ -99,59 +99,9 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
         }
     };
 
-    // const calcOperation = (operator: Operators, expression: string) => {
-    //     const operatorIndex = expression.indexOf(operator);
-    //
-    //     if (operatorIndex !== -1) {
-    //         let value1 = 0, value2 = 0;
-    //         if (operator !== Operators.PRC) {
-    //             value1 = PostfixNotationExpression.result(expression.substring(0, operatorIndex));
-    //             value2 = PostfixNotationExpression.result(expression.substring(operatorIndex + 1));
-    //         }
-    //         switch (operator) {
-    //             case Operators.MULT:
-    //                 return value1 * value2;
-    //             case Operators.DIV:
-    //                 return value1 / value2;
-    //             case Operators.ADD:
-    //                 return value1 + value2;
-    //             case Operators.SUB:
-    //                 return (value1 || 0) - value2;
-    //             case Operators.PRC:
-    //                 const beforPRC = expression.substring(0, operatorIndex);
-    //                 const kInd = Math.max(beforPRC.lastIndexOf('+'), beforPRC.lastIndexOf('-'));
-    //
-    //                 const k = parseFloat(beforPRC.substring(kInd + 1)) / 100;
-    //
-    //                 const operBefore = beforPRC.substr(kInd, 1);
-    //
-    //                 const expressionBefore = beforPRC.substring(0, kInd);
-    //
-    //                 const operBeforeInd = Math.max(expressionBefore.lastIndexOf('+'), expressionBefore.lastIndexOf('-'));
-    //                 const x = PostfixNotationExpression.result(expressionBefore.substring(operBeforeInd + 1, kInd));
-    //                 const y = k * x;
-    //                 return PostfixNotationExpression.result(expressionBefore.substring(0, operBeforeInd + 1) + x + operBefore + y + expression.substring(operatorIndex + 1));
-    //             default:
-    //                 return result;
-    //         }
-    //     }
-    //     return undefined;
-    // };
-
-
     const clear = () => {
         setResult(0);
         setExpression('');
-    };
-
-    const negative = () => {
-        // if (expression.length > 0) {
-        //     let result = PostfixNotationExpression.result(expression);
-        //     result *= -1;
-        //     setResult(result);
-        //     setExpression(result.toString())
-        // }
-        addToExpression('0@');
     };
 
     const run = () => {
@@ -211,7 +161,7 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={negative}>
+                    <Button classes={classes} onClick={()=>addToExpression('0@')}>
                         <PlusMinus/>
                     </Button>
                 </Grid>
