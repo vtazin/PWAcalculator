@@ -51,15 +51,6 @@ const Display = ({expression, result}: { expression: string; result: number; }) 
     }, [expression]);
 
     const classes = useStyles();
-    // const displayValue = () => {
-    //     let textValue = result.toString();
-    //     let additionalValue = '';
-    //     if (textValue.indexOf('e') !== -1) {
-    //         additionalValue = textValue.slice(textValue.indexOf('e'));
-    //     }
-    //     textValue = textValue.slice(0, 14 - additionalValue.length);
-    //     return parseFloat(textValue + additionalValue);
-    // };
 
     return (
         <div className={classes.root}>

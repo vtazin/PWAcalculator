@@ -86,10 +86,16 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
 
     const backSpace = () => {
         if (expression.length > 0) {
-            let newExpression = expression.substr(0, expression.length - 1);
-            if (newExpression.length === 0 || (newExpression.length === 1 && newExpression[0] === '-')) {
+            if (expression.length === 1) {
                 clear();
             } else {
+                let newExpression;
+                if (expression.match(/0@[\d.]+$/)) {
+                    newExpression = expression.replace(/0@([\d.]+)$/, '$1');
+                } else {
+                    newExpression = expression.substr(0, expression.length - 1);
+                }
+
                 const evalResult = PostfixNotationExpression.result(newExpression);
                 if (!isNaN(evalResult)) {
                     setResult(evalResult);
@@ -161,7 +167,7 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={()=>addToExpression('0@')}>
+                    <Button classes={classes} onClick={() => addToExpression('0@')}>
                         <PlusMinus/>
                     </Button>
                 </Grid>

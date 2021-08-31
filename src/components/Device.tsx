@@ -2,7 +2,6 @@ import {Box, makeStyles} from '@material-ui/core';
 import Display from './Display';
 import MainButtons from './MainButtons';
 import {useState} from 'react';
-import AdditionalButtons from './AdditionalButtons';
 
 const useStyle = makeStyles(() => ({
     root: {
@@ -37,10 +36,10 @@ export default function Device() {
                 p={2}
                 m={0}
             >
-                <Box display={{xs: 'none', sm: 'block'}} flexShrink={1}>
-                    {/*result={result} setResult={setResult} expression={expression}setExpression={setExpression}*/}
-                    <AdditionalButtons/>
-                </Box>
+                {/*<Box display={{xs: 'none', sm: 'block'}} flexShrink={1}>*/}
+                {/*    /!*result={result} setResult={setResult} expression={expression}setExpression={setExpression}*!/*/}
+                {/*    <AdditionalButtons/>*/}
+                {/*</Box>*/}
                 <Box flexShrink={1}>
                     <MainButtons setResult={setResult} expression={expression}
                                  setExpression={setExpression}/>

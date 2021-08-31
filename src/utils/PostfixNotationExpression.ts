@@ -172,7 +172,11 @@ export default class PostfixNotationExpression {
             }
 
         }
-        return parseFloat(stack.pop());
+        let result = parseFloat(stack.pop());
+        if (!isNaN(result)) {
+            result = parseFloat(result.toFixed(15));
+        }
+        return result;
     }
 }
 
