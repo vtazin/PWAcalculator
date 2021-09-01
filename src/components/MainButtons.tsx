@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 
-const MainButtons = ({expression, setExpression, setResult}: { expression: string; setExpression: (value: string) => void; setResult: (value: number) => void; }) => {
+const MainButtons = ({expression, setExpression, setResult}: { expression: string; setExpression: (value: string) => void; setResult: (value: string) => void; }) => {
 
     const addToExpression = (value: string) => {
         let result = expression;
@@ -51,7 +51,7 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
                 result = result.replace(/([\d.]+)$/, '0@$1');
             }
             const evalResult = PostfixNotationExpression.result(result);
-            if (!isNaN(evalResult)) {
+            if (evalResult !== undefined) {
                 setResult(evalResult);
             }
             setExpression(result);
@@ -78,7 +78,7 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
             result += value;
         }
         const evalResult = PostfixNotationExpression.result(result);
-        if (!isNaN(evalResult)) {
+        if (evalResult !== undefined) {
             setResult(evalResult);
         }
         setExpression(result);
@@ -97,7 +97,7 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
                 }
 
                 const evalResult = PostfixNotationExpression.result(newExpression);
-                if (!isNaN(evalResult)) {
+                if (evalResult !== undefined) {
                     setResult(evalResult);
                 }
                 setExpression(newExpression);
@@ -106,17 +106,17 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
     };
 
     const clear = () => {
-        setResult(0);
+        setResult('0');
         setExpression('');
     };
 
     const run = () => {
         if (expression.length > 0) {
             const result = PostfixNotationExpression.result(expression);
-            if (!isNaN(result)) {
+            if (result !== undefined) {
                 setResult(result);
-                let expression = Math.abs(result).toString();
-                if (result < 0) {
+                let expression = result.replace('-', '');
+                if (parseFloat(result) < 0) {
                     expression = '0@' + expression;
                 }
                 setExpression(expression)

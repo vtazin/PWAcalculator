@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Display = ({expression, result}: { expression: string; result: number; }) => {
+const Display = ({expression, result}: { expression: string; result: string; }) => {
 
     const [fontSize, setFontSize] = useState('28px');
     useEffect(() => {
@@ -59,7 +59,7 @@ const Display = ({expression, result}: { expression: string; result: number; }) 
                     {expression.replaceAll(/0@([\d.]+)/g, '(-$1)')}
                 </div>
             </Box>
-            <TextField id="value" className={classes.display} value={result.toString()}
+            <TextField id="value" className={classes.display} value={result}
                        variant="filled" fullWidth margin="dense" disabled={true}/>
         </div>
     );

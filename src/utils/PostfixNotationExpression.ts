@@ -100,6 +100,7 @@ export default class PostfixNotationExpression {
         const stack = new Stack();
         const queue = this.convertToPostfixNotation(input);
         let str = queue.shift();
+
         while (queue.length >= 0 && str) {
             if (!this.operators.includes(str)) {
                 stack.push(str);
@@ -172,11 +173,17 @@ export default class PostfixNotationExpression {
             }
 
         }
-        let result = parseFloat(stack.pop());
+        const result = parseFloat(stack.pop());
+
         if (!isNaN(result)) {
-            result = parseFloat(result.toFixed(15));
+            let text = result.toString();
+            const pointIndex = text.indexOf('.');
+            if (pointIndex !== -1) {
+                const k = Math.pow(10, Math.min(Math.max(15 - pointIndex, 6),9));
+                text = (Math.round(result * k) / k).toString();
+            }
+            return text;
         }
-        return result;
     }
 }
 

@@ -21,7 +21,7 @@ const useStyle = makeStyles(() => ({
 
 export default function Device() {
 
-    const [result, setResult] = useState(0);
+    const [result, setResult] = useState('0');
     const [expression, setExpression] = useState('');
 
     const classes = useStyle();
