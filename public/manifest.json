@@ -1,7 +1,6 @@
 {
   "short_name": "Calc",
-  "name": "Calculator",
-  "description": "A simple React PWA calculator",
+  "name": "Simple React PWA Calculator",
   "icons": [
     {
       "src": "favicon.ico",
