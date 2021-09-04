@@ -28,11 +28,10 @@ enum Operators {
 const useStyles = makeStyles({
     root: {
         background: '#F0F0F0',
-        filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
         "&:hover": {
             //you want this to be the same as the backgroundColor above
             backgroundColor: "#F0F0F0"
-        }
+        },
     },
     label: {
         color: '#808080'
@@ -130,110 +129,110 @@ const MainButtons = ({expression, setExpression, setResult}: { expression: strin
         <Grid container item xs={12}>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} style={{backgroundColor: '#eec5ed'}} onClick={clear}>
+                    <Button aria-label={'keyboard-button'} classes={classes} style={{backgroundColor: '#eec5ed'}} onClick={clear}>
                         <AlphaCCircleOutline/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression(Operators.MULT)}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression(Operators.MULT)}>
                         <Close/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression(Operators.DIV)}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression(Operators.DIV)}>
                         <Division/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={backSpace}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={backSpace}>
                         <BackspaceOutline/>
                     </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('7')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('7')}>
                         <Numeric7/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('8')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('8')}>
                         <Numeric8/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('9')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('9')}>
                         <Numeric9/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('0@')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('0@')}>
                         <PlusMinus/>
                     </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('4')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('4')}>
                         <Numeric4/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('5')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('5')}>
                         <Numeric5/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('6')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('6')}>
                         <Numeric6/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression(Operators.SUB)}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression(Operators.SUB)}>
                         <Minus/>
                     </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('1')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('1')}>
                         <Numeric1/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('2')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('2')}>
                         <Numeric2/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('3')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('3')}>
                         <Numeric3/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression(Operators.ADD)}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression(Operators.ADD)}>
                         <Plus/>
                     </Button>
                 </Grid>
             </Grid>
             <Grid container item xs={12}>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression(Operators.PRC)}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression(Operators.PRC)}>
                         <PercentOutline/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('0')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('0')}>
                         <Numeric0/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => addToExpression('.')}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => addToExpression('.')}>
                         <CircleSmall/>
                     </Button>
                 </Grid>
                 <Grid container justifyContent="center" alignItems="center" item xs={3}>
-                    <Button classes={classes} onClick={() => run()} style={{backgroundColor: '#87CEFA'}}>
+                    <Button aria-label={'keyboard-button'} classes={classes} onClick={() => run()} style={{backgroundColor: '#87CEFA'}}>
                         <Equal/>
                     </Button>
                 </Grid>

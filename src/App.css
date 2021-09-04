@@ -13,7 +13,7 @@ body {
     --min-radius:calc(100vh/22);
     --font-size: var(--min-radius);
     border-radius: var(--min-radius) !important;
-    border: none !important;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.25);
     margin: 5px !important;
     height: var(--min-height) !important;
     min-width: var(--min-height) !important;

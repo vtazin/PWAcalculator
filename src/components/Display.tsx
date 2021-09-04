@@ -1,52 +1,45 @@
-import {Box, makeStyles, TextField} from '@material-ui/core';
+import {Input, makeStyles} from '@material-ui/core';
 import {useEffect, useState} from 'react';
 
 // A style sheet
 const useStyles = makeStyles({
     root: {
         height: '95%',
-        display: 'flex!important',
-        flexFlow: 'column wrap!important',
-        padding: '5px!important',
+        display: 'flex',
+        flexFlow: 'column wrap',
+        padding: '3%!important',
     },
-    expression: {
+    expressionRoot: {
         flexGrow: 2,
-        textAlign: 'end',
-        color: 'white',
-        position: 'relative',
-        '& div': {
-            position: 'absolute',
-            bottom: '5px',
-            right: '5px'
-        }
     },
-    display: {
-        marginTop: '0!important',
-        flexBasis: 'auto!important',
-        flexGrow: 1,
-        '& div': {
-            background: 'none!important',
-            height: '100%',
-            '& input': {
-                textAlign: 'end',
-                color: '#DDDDDD',
-                fontSize: '18px',
-                position: 'absolute',
-                bottom: '5px',
-                right: 0,
-            }
-        }
+    expressionInput: {
+        position: 'absolute',
+        bottom: '5px',
+        color: '#DDDDDD',
+        textAlign: 'end',
+        fontSize: 'inherit',
+    },
+    resultRoot: {
+        flexBasis: 'auto',
+    },
+    resultInput: {
+        color: '#DDDDDD',
+        textAlign: 'end',
+        fontSize: '18px',
     }
+
 });
 
 const Display = ({expression, result}: { expression: string; result: string; }) => {
 
     const [fontSize, setFontSize] = useState('28px');
     useEffect(() => {
-        if(expression.length>23){
+        if (expression.length > 23) {
             setFontSize('16px');
         } else if (expression.length > 18) {
             setFontSize('24px');
+        } else {
+            setFontSize('28px');
         }
     }, [expression]);
 
@@ -54,13 +47,15 @@ const Display = ({expression, result}: { expression: string; result: string; }) 
 
     return (
         <div className={classes.root}>
-            <Box component="div" className={classes.expression}>
-                <div style={{fontSize}}>
-                    {expression.replaceAll(/0@([\d.]+)/g, '(-$1)')}
-                </div>
-            </Box>
-            <TextField id="value" className={classes.display} value={result}
-                       variant="filled" fullWidth margin="dense" disabled={true}/>
+            <Input id="expression" classes={{root: classes.expressionRoot, input: classes.expressionInput}}
+                   style={{fontSize}}
+                   value={expression.replaceAll(/0@([\d.]+)/g, '(-$1)')}
+                   fullWidth margin="dense" disabled={true}/>
+            <label htmlFor="expression">Expression</label>
+            <Input id="result" classes={{root: classes.resultRoot, input: classes.resultInput}} value={result} fullWidth
+                   margin="dense"
+                   disabled={true}/>
+            <label htmlFor="result">Result value</label>
         </div>
     );
 };
